@@ -1,0 +1,11 @@
+{
+	"name": "signupsubmission",
+	"version": "0.0.1",
+	"description": "",
+	"main": "main.js",
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"discord.js": "^14.7.1"
+	}
+}
