@@ -6,7 +6,6 @@ const {
 	ActionRowBuilder,
 	ButtonStyle,
 	TextInputBuilder,
-	ActionRow,
 	TextInputStyle,
 } = require("discord.js");
 
@@ -163,10 +162,29 @@ module.exports = async (client) => {
 				embeds: [submissionEmbed],
 			});
 
-			return interaction.reply({
-				content: `Your information has been submitted and you can view it in <#${config.submissionChannel}>.\n\n**Please wait for a moderator to review it and give you the role to view the tournament code.**`,
-				ephemeral: true,
-			});
+			const guild = client.guilds.cache.get(interaction.guild.id);
+
+			const member = guild.members.cache.find(
+				(m) => m.id === interaction.user.id
+			);
+
+			if (member.roles.cache.has(config.tourneyRole)) {
+				// if they already have the role
+				// Do nothing
+
+				return interaction.reply({
+					content: `Your information has been submitted and you can view it in <#${config.submissionChannel}>.\n\n**You can now view the code in <#${config.tourneyCodeChannel}>.**`,
+					ephemeral: true,
+				});
+			} else {
+				// if they don't have the role
+				member.roles.add(config.tourneyRole); // add it
+
+				return interaction.reply({
+					content: `Your information has been submitted and you can view it in <#${config.submissionChannel}>.\n\n**You can now view the code in <#${config.tourneyCodeChannel}>.**`,
+					ephemeral: true,
+				});
+			}
 		}
 	});
 };
