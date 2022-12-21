@@ -2,6 +2,7 @@ const {
 	Client,
 	GatewayIntentBits,
 	ApplicationCommandType,
+	ActivityType,
 } = require("discord.js");
 const { token, guildID } = require("./config.json");
 
@@ -15,6 +16,12 @@ const client = new Client({
 
 client.on("ready", async () => {
 	console.log(`${client.user.username} is Online.`);
+
+	client.user.setPresence({
+		activities: [
+			{ type: ActivityType.Watching, name: `your hiding spot ;)` },
+		],
+	});
 
 	let guild = client.guilds.cache.get(guildID);
 
