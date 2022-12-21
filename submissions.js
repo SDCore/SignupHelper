@@ -47,14 +47,16 @@ module.exports = async (client) => {
 					let signupEmbed = new EmbedBuilder()
 						.setTitle("Sign Up Here!")
 						.setDescription(
-							"Use the button below to enter your info!"
-						);
+							"Use the button below to enter your info!\n\nWe need your Apex Legends username, platform you're playing on, and your Twitch username. This is so we can find you and get in contact with you in case something happens."
+						)
+						.setThumbnail("https://i.sdcore.dev/95v93bqrh.png");
 
 					let signupButtons = new ActionRowBuilder().addComponents([
 						new ButtonBuilder()
 							.setCustomId("signup_modal")
-							.setStyle(ButtonStyle.Primary)
-							.setLabel("Sign Up Here"),
+							.setStyle(ButtonStyle.Success)
+							.setLabel("Tournament Sign Up")
+							.setEmoji("✏️"),
 					]);
 
 					await signupChannel.send({
@@ -173,7 +175,7 @@ module.exports = async (client) => {
 				// Do nothing
 
 				return interaction.reply({
-					content: `Your information has been submitted and you can view it in <#${config.submissionChannel}>.\n\n**You can now view the code in <#${config.tourneyCodeChannel}>.**`,
+					content: `Your information has been submitted and you can view it in <#${config.submissionChannel}>.\n\n**You can now view the private match code in <#${config.tourneyCodeChannel}>. Please make sure to follow the rules and pay attention to stream while playing!**`,
 					ephemeral: true,
 				});
 			} else {
@@ -181,7 +183,7 @@ module.exports = async (client) => {
 				member.roles.add(config.tourneyRole); // add it
 
 				return interaction.reply({
-					content: `Your information has been submitted and you can view it in <#${config.submissionChannel}>.\n\n**You can now view the code in <#${config.tourneyCodeChannel}>.**`,
+					content: `Your information has been submitted and you can view it in <#${config.submissionChannel}>.\n\n**You can now view the private match code in <#${config.tourneyCodeChannel}>. Please make sure to follow the rules and pay attention to stream while playing!**`,
 					ephemeral: true,
 				});
 			}
