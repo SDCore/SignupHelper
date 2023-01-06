@@ -175,7 +175,7 @@ module.exports = async (client) => {
 				// Do nothing
 
 				return interaction.reply({
-					content: `Your information has been submitted and you can view it in <#${config.submissionChannel}>.\n\n**You can now view the private match code in <#${config.tourneyCodeChannel}>. Please make sure to follow the rules and pay attention to stream while playing!**`,
+					content: `Your information has been submitted! Thanks!\n\n**You can now view the private match code in <#${config.tourneyCodeChannel}>. Please make sure to follow the rules and pay attention to stream while playing!**`,
 					ephemeral: true,
 				});
 			} else {
@@ -183,7 +183,7 @@ module.exports = async (client) => {
 				member.roles.add(config.tourneyRole); // add it
 
 				return interaction.reply({
-					content: `Your information has been submitted and you can view it in <#${config.submissionChannel}>.\n\n**You can now view the private match code in <#${config.tourneyCodeChannel}>. Please make sure to follow the rules and pay attention to stream while playing!**`,
+					content: `Your information has been submitted! Thanks!\n\n**You can now view the private match code in <#${config.tourneyCodeChannel}>. Please make sure to follow the rules and pay attention to stream while playing!**`,
 					ephemeral: true,
 				});
 			}
