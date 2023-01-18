@@ -31,6 +31,24 @@ module.exports = async (client) => {
 						content: `> Pong! ${client.ws.ping}ms`,
 					});
 				}
+			} else if (interaction.commandName == "reset") {
+				//interaction.guild.members.cache.forEach((member) => {
+				//	setTimeout(() => {
+				//		member.roles.remove(config.tourneyRole);
+				//		console.log(`Role removed from ${member.user.tag}`); // Removing the Role.
+				//	}, member * 5000);
+				//});
+
+				interaction.guild.members.fetch().then((i) => {
+					i.forEach((member) => {
+						let role = interaction.guild.roles.cache.get(
+							config.tourneyRole
+						);
+						setTimeout(() => {
+							member.roles.remove(role);
+						}, 5000);
+					});
+				});
 			} else if (interaction.commandName == "setup") {
 				if (interaction.user.id != config.admin) {
 					return interaction.reply({
@@ -47,7 +65,7 @@ module.exports = async (client) => {
 					let signupEmbed = new EmbedBuilder()
 						.setTitle("Sign Up Here!")
 						.setDescription(
-							"Use the button below to enter your info!\n\nWe need your Apex Legends username, platform you're playing on, and your Twitch username. This is so we can find you and get in contact with you in case something happens."
+							"Use the button below to enter your info!\n\nWe need your Apex Legends username, platform you're playing on, and your Twitch username. This is so we can find you and get in contact with you in case something happens.\n\nUse the additional notes section to tell us if you want to be on a team with friends, or any additional info we might need."
 						)
 						.setThumbnail("https://i.sdcore.dev/95v93bqrh.png");
 
@@ -82,15 +100,15 @@ module.exports = async (client) => {
 					.setCustomId("signup_apex")
 					.setLabel("Apex Username")
 					.setMinLength(3)
-					.setMaxLength(100)
+					.setMaxLength(75)
 					.setRequired(true)
 					.setStyle(TextInputStyle.Short);
 
 				const platform = new TextInputBuilder()
 					.setCustomId("signup_platform")
-					.setLabel("Platform (Steam/Origin, Xbox, or PlayStation)")
+					.setLabel("Platform (PC, Xbox, PlayStation, or Switch)")
 					.setMinLength(4)
-					.setMaxLength(11)
+					.setMaxLength(20)
 					.setRequired(true)
 					.setStyle(TextInputStyle.Short);
 
@@ -101,6 +119,14 @@ module.exports = async (client) => {
 					.setMaxLength(75)
 					.setRequired(true)
 					.setStyle(TextInputStyle.Short);
+
+				const notes = new TextInputBuilder()
+					.setCustomId("signup_notes")
+					.setLabel("Additional Notes (Optional)")
+					.setMinLength(1)
+					.setMaxLength(1000)
+					.setRequired(false)
+					.setStyle(TextInputStyle.Paragraph);
 
 				const rowApexName = new ActionRowBuilder().addComponents(
 					apexName
@@ -114,10 +140,13 @@ module.exports = async (client) => {
 					twitchName
 				);
 
+				const rowNotes = new ActionRowBuilder().addComponents(notes);
+
 				signupModal.addComponents(
 					rowApexName,
 					rowPlatform,
-					rowTwitchName
+					rowTwitchName,
+					rowNotes
 				);
 
 				await interaction.showModal(signupModal);
@@ -131,6 +160,7 @@ module.exports = async (client) => {
 				interaction.fields.getTextInputValue("signup_platform");
 			const twitchName =
 				interaction.fields.getTextInputValue("signup_twitch");
+			const notes = interaction.fields.getTextInputValue("signup_notes");
 
 			let submissionChannel = interaction.guild.channels.cache.get(
 				config.submissionChannel
@@ -145,16 +175,17 @@ module.exports = async (client) => {
 					{
 						name: "Apex Username",
 						value: apexName,
-					},
-					{
-						name: "Platform",
-						value: platform,
 						inline: true,
 					},
 					{
 						name: "Twitch Username",
 						value: twitchName,
 						inline: true,
+					},
+					{
+						name: "Additional Notes",
+						value: notes,
+						inline: false,
 					}
 				)
 				.setThumbnail(interaction.user.avatarURL())
