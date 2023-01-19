@@ -166,6 +166,27 @@ module.exports = async (client) => {
 				config.submissionChannel
 			);
 
+			function getPlatformEmoji(platform) {
+				var platformLowercase = platform.toLowerCase();
+
+				if (
+					platformLowercase == "pc" ||
+					platformLowercase == "origin" ||
+					platformLowercase == "steam"
+				)
+					return "🖥️";
+				if (platformLowercase == "xbox") return "🎮";
+				if (platformLowercase == "playstation") return "🎮";
+				if (
+					platformLowercase == "switch" ||
+					platformLowercase == "nintendo switch" ||
+					platformLowercase == "nintendo"
+				)
+					return "🎮";
+
+				return "N/A";
+			}
+
 			let submissionEmbed = new EmbedBuilder()
 				.setTitle("New Signup Submission")
 				.setDescription(
