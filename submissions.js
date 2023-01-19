@@ -160,7 +160,8 @@ module.exports = async (client) => {
 				interaction.fields.getTextInputValue("signup_platform");
 			const twitchName =
 				interaction.fields.getTextInputValue("signup_twitch");
-			const notes = interaction.fields.getTextInputValue("signup_notes");
+			const notes =
+				interaction.fields.getTextInputValue("signup_notes") || "N/A";
 
 			let submissionChannel = interaction.guild.channels.cache.get(
 				config.submissionChannel
