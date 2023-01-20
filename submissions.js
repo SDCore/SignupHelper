@@ -107,7 +107,7 @@ module.exports = async (client) => {
 				const platform = new TextInputBuilder()
 					.setCustomId("signup_platform")
 					.setLabel("Platform (PC, Xbox, PlayStation, or Switch)")
-					.setMinLength(4)
+					.setMinLength(2)
 					.setMaxLength(20)
 					.setRequired(true)
 					.setStyle(TextInputStyle.Short);
