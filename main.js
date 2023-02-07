@@ -24,6 +24,7 @@ client.on("ready", async () => {
 	});
 
 	let guild = client.guilds.cache.get(guildID);
+	guild.members.fetch();
 
 	if (guild) {
 		await guild.commands.set([

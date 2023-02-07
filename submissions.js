@@ -54,8 +54,6 @@ module.exports = async (client) => {
 					config.tourneyRole
 				);
 
-				interaction.guild.members.fetch();
-
 				interaction.guild.members.cache.forEach(async (m) => {
 					if (!m.roles.cache.find((t) => t.id == config.tourneyRole))
 						return console.log(`role not found on ${m.user.tag}`);
