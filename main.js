@@ -37,12 +37,12 @@ client.on("ready", async () => {
 				description: "Set up the bot to do things and stuff.",
 				type: ApplicationCommandType.ChatInput,
 			},
-			//{
-			//	name: "reset",
-			//	description:
-			//		"Remove the Tournament Player role from all members of the server.",
-			//	type: ApplicationCommandType.ChatInput,
-			//},
+			{
+				name: "reset",
+				description:
+					"Remove the Tournament Player role from all members of the server.",
+				type: ApplicationCommandType.ChatInput,
+			},
 		]);
 	}
 

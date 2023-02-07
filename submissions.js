@@ -32,22 +32,42 @@ module.exports = async (client) => {
 					});
 				}
 			} else if (interaction.commandName == "reset") {
-				//interaction.guild.members.cache.forEach((member) => {
-				//	setTimeout(() => {
-				//		member.roles.remove(config.tourneyRole);
-				//		console.log(`Role removed from ${member.user.tag}`); // Removing the Role.
-				//	}, member * 5000);
-				//});
+				// interaction.guild.members.cache.forEach((member, i) => {
+				// 	setTimeout(() => {
+				// 		member.roles.remove(config.tourneyRole);
+				// 		console.log(`Role removed from ${member.user.tag}`); // Removing the Role.
+				// 	}, i * 1000);
+				// });
 
-				interaction.guild.members.fetch().then((i) => {
-					i.forEach((member) => {
-						let role = interaction.guild.roles.cache.get(
-							config.tourneyRole
-						);
-						setTimeout(() => {
-							member.roles.remove(role);
-						}, 5000);
+				// interaction.guild.members.fetch().then((i) => {
+				// 	i.forEach((member) => {
+				// 		let role = interaction.guild.roles.cache.get(
+				// 			config.tourneyRole
+				// 		);
+				// 		setTimeout(() => {
+				// 			member.roles.remove(role);
+				// 		}, 5000);
+				// 	});
+				// });
+
+				let role = interaction.guild.roles.cache.get(
+					config.tourneyRole
+				);
+
+				interaction.guild.members.cache.forEach(async (m) => {
+					if (!m.roles.cache.find((t) => t.id == config.tourneyRole))
+						return console.log(`role not found on ${m.user.tag}`);
+
+					console.log(`role found on ${m.user.tag}`);
+
+					m.roles.remove(role.id).then(function () {
+						console.log(`Removed role from user ${m.user.tag}!`);
 					});
+				});
+
+				return interaction.reply({
+					content: "Removing roles...",
+					ephemeral: true,
 				});
 			} else if (interaction.commandName == "setup") {
 				if (interaction.user.id != config.admin) {
