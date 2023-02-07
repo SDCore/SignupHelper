@@ -66,7 +66,8 @@ module.exports = async (client) => {
 				});
 
 				return interaction.reply({
-					content: "Removing roles...",
+					content:
+						"Removing role from user. This could take a few seconds.",
 					ephemeral: true,
 				});
 			} else if (interaction.commandName == "setup") {
