@@ -3,12 +3,12 @@
 	"version": "0.0.1",
 	"description": "",
 	"main": "main.js",
-    "scripts": {
-        "dev": "nodemon ."
-    },
+	"scripts": {
+		"dev": "nodemon ."
+	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"discord.js": "^14.7.1"
+		"discord.js": "14.8.0"
 	}
 }
